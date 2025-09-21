@@ -6,9 +6,6 @@ export class MinimapRenderer {
   private leaf: WorkspaceLeaf;
 
   private canvas: HTMLCanvasElement | null = null;
-  private resizeHandle: HTMLDivElement | null = null;
-
-  private isWidthDragging = false;
 
   constructor(host: MinimapHost, leaf: WorkspaceLeaf) {
     this.host = host;
@@ -28,40 +25,17 @@ export class MinimapRenderer {
     canvas.style.setProperty("--minimap-opacity", `${this.host.settings.minimapOpacity}`);
     canvas.style.cssText = `
       position: fixed;
-      top: 32px;
-      right: 0;
+      top: 50px;
+      right: 12px;
       width: ${this.host.settings.width}px;
-      height: calc(100vh - 32px);
+      height: calc(100vh - 50px);
       z-index: 1000;
       background: var(--background-primary);
       cursor: pointer;
       transition: opacity 0.2s ease-in-out;
       border-left: 0px;
     `;
-
-    // Resize handle
-    const handle = document.createElement("div");
-    handle.style.cssText = `
-      position: fixed;
-      top: 32px;
-      right: ${this.host.settings.width}px;
-      width: 5px;
-      height: calc(100vh - 32px);
-      z-index: 1001;
-      cursor: ew-resize;
-      background: var(--background-primary);
-    `;
-
-    // Events
-    handle.addEventListener("mousedown", () => {
-      this.isWidthDragging = true;
-      document.body.style.cursor = "ew-resize";
-    });
-
-    document.addEventListener("mousemove", this.onGlobalMouseMove);
-    document.addEventListener("mouseup", this.onGlobalMouseUp);
-
-    // editor scroll → update minimap
+    
     const editorElement = this.leaf.view.containerEl.querySelector(".cm-scroller");
     if (editorElement) {
       editorElement.addEventListener("scroll", this.onEditorScroll, { passive: true });
@@ -84,10 +58,10 @@ export class MinimapRenderer {
     });
 
     container.appendChild(canvas);
-    container.appendChild(handle);
+    //container.appendChild(handle);
 
     this.canvas = canvas;
-    this.resizeHandle = handle;
+    //this.resizeHandle = handle;
 
     this.update(); // initial paint
   }
@@ -98,12 +72,7 @@ export class MinimapRenderer {
       this.canvas.remove();
       this.canvas = null;
     }
-    if (this.resizeHandle) {
-      this.resizeHandle.remove();
-      this.resizeHandle = null;
-    }
-    document.removeEventListener("mousemove", this.onGlobalMouseMove);
-    document.removeEventListener("mouseup", this.onGlobalMouseUp);
+ 
     const editorElement =
       this.leaf.view instanceof MarkdownView
         ? this.leaf.view.containerEl.querySelector(".cm-scroller")
@@ -290,25 +259,6 @@ export class MinimapRenderer {
 
   private onEditorScroll = () => {
     if (!this.host.isDragging) this.update();
-  };
-
-  private onGlobalMouseMove = (e: MouseEvent) => {
-    if (!this.isWidthDragging || !this.canvas || !this.resizeHandle) return;
-    const newWidth = window.innerWidth - e.clientX;
-    if (newWidth >= 50 && newWidth <= 300) {
-      this.host.settings.width = newWidth;
-      this.canvas.style.width = `${newWidth}px`;
-      this.resizeHandle.style.right = `${newWidth}px`;
-      void this.host.saveSettings();
-      this.host.refreshMinimaps();
-    }
-  };
-
-  private onGlobalMouseUp = () => {
-    if (this.isWidthDragging) {
-      this.isWidthDragging = false;
-      document.body.style.cursor = "default";
-    }
   };
 
   private scrollToMinimapPosition(e: MouseEvent): void {

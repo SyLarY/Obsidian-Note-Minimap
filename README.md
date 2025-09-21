@@ -1,43 +1,40 @@
 # Obsidian Minimap Plugin
 
-A plugin for Obsidian that adds a Visual Studio Code-inspired minimap to markdown notes, providing a visual overview of document structure and quick navigation.
+A feature-rich, VS Code–style minimap for Obsidian that gives you a bird’s-eye view of your notes and lets you navigate them instantly.
 
-## Features
-- **Dynamic Minimap**: Displays a compact, scrollable overview of markdown content with customizable scaling and opacity.
-- **Content Visualization**: Highlights headers, lists, code blocks, images, tables, and embeds with distinct colors.
-- **Interactive Navigation**: Click or drag on the minimap to scroll to specific sections of the document.
-- **File-Specific Control**: Toggle the minimap for individual notes via a command.
-- **Customizable Settings**: Adjust visibility, colors, line height, text density, and element spacing.
+> **Credits:**  
+> Original plugin created by [**Th0rGarden**](https://github.com/Th0rGarden/obsidian-minimap).  
+> This fork adds major refactors of ts files, fixes bugs for improved usability and customization.
 
-## Installation
-1. Open Obsidian and navigate to **Settings > Community Plugins**.
-2. Disable **Restricted Mode** if enabled.
-3. Click **Browse** and search for "Minimap".
-4. Install the plugin and enable it.
+## ✨ Features
+- **Visual Overview:** Compact canvas showing headers, lists, code blocks, images, tables, and embeds with distinct colors.
+- **Per-File Control:** Toggle the minimap on/off for individual notes with a single command.
+- **Interactive Navigation:** Click within the minimap to jump to any section of the document.
+- **Context Menu:** Right-click to adjust scaling and opacity on the fly.
+- **Customizable Settings:** Fine-tune width, opacity, line height, text density, colors, and element visibility from a dedicated settings tab.
 
-Alternatively, manually install by copying the plugin files to your Obsidian vault's `.obsidian/plugins/minimap/` directory.
+## 📦 Installation
+**Manual install:** Copy the built plugin folder into `<your-vault>/.obsidian/plugins/minimap/`.
 
-## Usage
+## 🚀 Usage
 - The minimap appears on the right side of markdown notes by default.
-- Use the **Toggle Minimap for Current Note** command to enable/disable the minimap for specific files.
-- Click or drag within the minimap to navigate the document.
-- Configure settings in **Settings > Minimap Settings** to customize appearance and behavior.
+- Use **Command Palette → Toggle Minimap for Current Note** to enable/disable it per file.
+- Right-click the minimap to adjust scale or opacity.
+- Configure appearance under **Settings → Minimap Settings**.
 
-## Settings
-- **General**:
-  - **Minimap Width**: Set width (50-300px).
-  - **Minimap Opacity**: Set overall opacity (0.1-1.0).
-  - **Density**: Control element spacing (0.5-2.5).
-- **Element Visibility**: Toggle display of headers, lists, and code blocks.
-- **Colors**: Customize colors for headers (1-6), text, code blocks, images, tables, embeds, and scroll indicator.
+## ⚙️ Settings
+- **General:** Width, opacity, line height, density, scaling.
+- **Element Visibility:** Toggle headers, lists, and code blocks.
+- **Colors:** Fully customizable for headers (1–6), text, code blocks, tables, embeds, images, and scroll indicator.
 
-## Development
-- Clone the repository: `git clone <repository-url>`.
-- Install dependencies: `npm install`.
-- Build the plugin: `npm run build`.
-- Copy the built files to your Obsidian plugins directory.
+## 🛠 Development
+```bash
+git clone <repository-url>
+npm install
+npm run build
+```
 
-## Contributing
+## 🤝Contributing
 - Report issues or suggest features via GitHub Issues.
 - Submit pull requests with improvements or bug fixes.
 
